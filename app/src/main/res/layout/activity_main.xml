@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Transltor Container-->
     <LinearLayout
         android:gravity="center"
         android:orientation="vertical"
@@ -136,22 +137,40 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <TextView
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:id="@+id/tvDisplay"
-                android:background="@drawable/stock_bg"
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:text=""
-                android:textIsSelectable="true" />
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:gravity="center">
+
+             <TextView
+                 android:id="@+id/tvDisplay"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_marginStart="10dp"
+                 android:layout_marginTop="10dp"
+                 android:layout_marginEnd="10dp"
+                 android:layout_marginBottom="10dp"
+                 android:background="@drawable/stock_bg"
+                 android:padding="10dp"
+                 android:text=""
+                 android:textColor="@color/black"
+                 android:textIsSelectable="true"
+                 android:textSize="18sp" />
+
+            <!--Loader-->
+             <ProgressBar
+                 android:id="@+id/loader"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_centerInParent="true"
+                 android:visibility="gone"
+                 android:indeterminateTint="@color/purple_500"/>
+         </RelativeLayout>
+
 
         </LinearLayout>
 
     </LinearLayout>
-
 
     <!-- Voice and Clear Icon Top Card-->
     <LinearLayout

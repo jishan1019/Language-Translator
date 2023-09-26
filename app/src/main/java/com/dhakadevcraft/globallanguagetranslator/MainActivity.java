@@ -3,6 +3,7 @@ package com.dhakadevcraft.globallanguagetranslator;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     ImageView voiceIcon,btnPaste,btnListen;
     TextToSpeech textToSpeech;
+    ProgressBar loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         this.clear_button = (ImageView) findViewById(R.id.clear_button);
         btnPaste = (ImageView) findViewById(R.id.btnPaste);
         btnListen = (ImageView) findViewById(R.id.btnListen);
+        loader = findViewById(R.id.loader);
 
 
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -75,16 +79,19 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Please input some text frist.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                showLoader();
                 String targetLanguageCode = "bn";
                 if (MainActivity.this.spLanguage.getSelectedItem().toString().equals("English")) {
                     targetLanguageCode = "en";
                 }
                 new TranslateAPI("auto", targetLanguageCode, MainActivity.this.edInput.getText().toString()).setTranslateListener(new TranslateAPI.TranslateListener() {
                     public void onSuccess(String translatedText) {
+                        hideLoader();
                         MainActivity.this.textView.setText("" + translatedText);
                     }
 
                     public void onFailure(String ErrorText) {
+                        hideLoader();
                     }
                 });
             }
@@ -120,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
 
         this.clear_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (textToSpeech != null && textToSpeech.isSpeaking()) {
+                    textToSpeech.stop();
+                }
                 MainActivity.this.edInput.setText("");
                 MainActivity.this.textView.setText("");
                 Toast.makeText(MainActivity.this, "Text Clear.", 0).show();
@@ -175,8 +185,13 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    private void showLoader() {
+        loader.setVisibility(View.VISIBLE);
+    }
 
-
+    private void hideLoader() {
+        loader.setVisibility(View.GONE);
+    }
 
     @Override
     protected void onDestroy() {
