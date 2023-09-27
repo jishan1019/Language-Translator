@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         this.button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (MainActivity.this.edInput.length() == 0) {
-                    Toast.makeText(MainActivity.this, "Please input some text frist.", Toast.LENGTH_SHORT).show();
+                    toast("Please input some text frist.");
                     return;
                 }
                 showLoader();
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 String textToCopy = MainActivity.this.textView.getText().toString();
                 if (textToCopy.length() != 0) {
                     ((ClipboardManager) MainActivity.this.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("Copied Text", textToCopy));
-                    Toast.makeText(MainActivity.this, "Text copied to clipboard", Toast.LENGTH_SHORT).show();
+                    toast("Text copied to clipboard");
                     return;
                 }
                 Toast.makeText(MainActivity.this, "Please translate frist", Toast.LENGTH_SHORT).show();
@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
                     String textToPaste = item.getText().toString();
                     edInput.setText(textToPaste);
+                    toast("Text Past Success.");
                 }
             }
         });
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 MainActivity.this.edInput.setText("");
                 MainActivity.this.textView.setText("");
-                Toast.makeText(MainActivity.this, "Text Clear.", 0).show();
+                toast("Text Clear.");
             }
         });
 
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (MainActivity.this.edInput.length() == 0) {
-                    Toast.makeText(MainActivity.this, "Please input some text frist.", Toast.LENGTH_SHORT).show();
+                    toast("Please input some text frist.");
                     return;
                 }
                 String textToSpeak = textView.getText().toString();
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, this.REQUEST_CODE_SPEECH_INPUT);
         } else {
-            Toast.makeText(this, "Your device does not support speech recognition", 0).show();
+            toast("Your device does not support speech recognition");
         }
     }
 
@@ -191,6 +192,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void hideLoader() {
         loader.setVisibility(View.GONE);
+    }
+
+    private void toast(String massage) {
+        Toast.makeText(this, ""+massage, Toast.LENGTH_SHORT).show();
     }
 
     @Override

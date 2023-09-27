@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text=""
-                    android:hint="Input Your text"
+                    android:hint="Input Your text here..."
                     android:ems="10"
                     android:inputType="textMultiLine"
                     android:textAlignment="viewStart" />
@@ -85,8 +85,8 @@
 
                         <ImageView
                             android:id="@+id/clear_button"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginBottom="1dp"
                             android:src="@drawable/clear" />
@@ -182,7 +182,15 @@
         android:layout_marginRight="8dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+
         >
+
+        <ImageView
+            android:id="@+id/favirute"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/favurite" />
 
         <ImageView
             android:id="@+id/btnListen"
@@ -195,8 +203,17 @@
             android:id="@+id/copy_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginRight="15dp"
             android:src="@drawable/copy" />
+
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="30dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="25dp"
+            android:src="@drawable/share" />
+
+
     </LinearLayout>
 
 
