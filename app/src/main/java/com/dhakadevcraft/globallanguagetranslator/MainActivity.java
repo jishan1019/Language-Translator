@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     int REQUEST_CODE_SPEECH_INPUT = 100;
     Button button;
-    ImageView clear_button;
+    ImageView clear_button,share;
     ImageView copyButton;
     EditText edInput;
     Spinner spLanguage;
@@ -53,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
         this.clear_button = (ImageView) findViewById(R.id.clear_button);
         btnPaste = (ImageView) findViewById(R.id.btnPaste);
         btnListen = (ImageView) findViewById(R.id.btnListen);
+        share = (ImageView) findViewById(R.id.share);
         loader = findViewById(R.id.loader);
 
-
+        //-------------------Text To Speatch Code --------------------------------------
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -69,10 +70,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, 17367048);
         adapter.setDropDownViewResource(17367049);
         this.spLanguage.setAdapter(adapter);
+
+        //-------------------Edit text text add sharePrefrence Code --------------------
+
+
+        //-------------------Translate Button Code --------------------------------------
         this.button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (MainActivity.this.edInput.length() == 0) {
@@ -96,6 +101,43 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+
+        //--------------------------Edit Text Button--------------------------------------
+        btnPaste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboard != null && clipboard.hasPrimaryClip()) {
+                    ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+                    String textToPaste = item.getText().toString();
+                    edInput.setText(textToPaste);
+                    toast("Text Past Success.");
+                }
+            }
+        });
+        this.clear_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (textToSpeech != null && textToSpeech.isSpeaking()) {
+                    textToSpeech.stop();
+                }
+                MainActivity.this.edInput.setText("");
+                MainActivity.this.textView.setText("");
+                toast("Text Clear.");
+            }
+        });
+        btnListen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MainActivity.this.edInput.length() == 0) {
+                    toast("Please input some text frist.");
+                    return;
+                }
+                String textToSpeak = textView.getText().toString();
+                textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "listenText");
+            }
+        });
+
+        //--------------------------Tv Display Button---------------------------------------
         this.copyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String textToCopy = MainActivity.this.textView.getText().toString();
@@ -112,45 +154,21 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startSpeechToText();
             }
         });
-        btnPaste.setOnClickListener(new View.OnClickListener() {
+        share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                if (clipboard != null && clipboard.hasPrimaryClip()) {
-                    ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
-                    String textToPaste = item.getText().toString();
-                    edInput.setText(textToPaste);
-                    toast("Text Past Success.");
-                }
+                String textToShare = textView.getText().toString();
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
+                shareIntent.setType("text/plain");
+                startActivity(Intent.createChooser(shareIntent, "Share text via"));
             }
         });
 
 
-        this.clear_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (textToSpeech != null && textToSpeech.isSpeaking()) {
-                    textToSpeech.stop();
-                }
-                MainActivity.this.edInput.setText("");
-                MainActivity.this.textView.setText("");
-                toast("Text Clear.");
-            }
-        });
-
-        btnListen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (MainActivity.this.edInput.length() == 0) {
-                    toast("Please input some text frist.");
-                    return;
-                }
-                String textToSpeak = textView.getText().toString();
-                textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "listenText");
-            }
-        });
     }
 
-    /* access modifiers changed from: private */
     public void startSpeechToText() {
         Intent intent = new Intent("android.speech.action.RECOGNIZE_SPEECH");
         intent.putExtra("android.speech.extra.LANGUAGE_MODEL", "free_form");
@@ -163,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /* access modifiers changed from: protected */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         ArrayList<String> result;
         super.onActivityResult(requestCode, resultCode, data);
