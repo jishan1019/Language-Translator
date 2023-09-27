@@ -9,8 +9,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView voiceIcon,btnPaste,btnListen;
     TextToSpeech textToSpeech;
     ProgressBar loader;
+    SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +79,32 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(17367049);
         this.spLanguage.setAdapter(adapter);
 
-        //-------------------Edit text text add sharePrefrence Code --------------------
+        //-------------------Share Prefrence EdInput Fild Save Code --------------------------------------
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String saveText = sharedPreferences.getString("userInput","");
+        edInput.setText(saveText);
 
+        //-------------------Edit text text add sharePrefrence Code --------------------
+        edInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String userInput = s.toString();
+                editor.putString("userInput", userInput);
+                editor.apply();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         //-------------------Translate Button Code --------------------------------------
         this.button.setOnClickListener(new View.OnClickListener() {
