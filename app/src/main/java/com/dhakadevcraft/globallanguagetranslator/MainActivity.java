@@ -1,7 +1,11 @@
 package com.dhakadevcraft.globallanguagetranslator;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;
@@ -14,6 +18,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -60,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         btnListen = (ImageView) findViewById(R.id.btnListen);
         share = (ImageView) findViewById(R.id.share);
         loader = findViewById(R.id.loader);
+
+        //-------------------Drower Layout Code --------------------------------------
+
 
         //-------------------Text To Speatch Code --------------------------------------
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -217,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
             this.edInput.setText(result.get(0));
         }
     }
+
 
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
