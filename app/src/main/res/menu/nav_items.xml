@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group1"
+        >
+
+        <item
+            android:id="@+id/home"
+            android:title="Home"
+            android:icon="@drawable/ic_baseline_home_24"
+            />
+
+        <item
+            android:id="@+id/favourite"
+            android:title="Favourite"
+            android:icon="@drawable/ic_baseline_favorite_24"
+            />
+
+        <item
+            android:id="@+id/feedback"
+            android:title="Feedback"
+            android:icon="@drawable/ic_baseline_feedback_24"
+            />
+
+        <item
+            android:id="@+id/update"
+            android:title="Update Apps"
+            android:icon="@drawable/ic_baseline_update_24"
+            />
+
+        <item
+            android:id="@+id/more"
+            android:title="More Apps"
+            android:icon="@drawable/ic_baseline_add_to_more_24"
+            />
+
+    </group>
+
+    <group
+        android:id="@+id/group2"
+        >
+
+        <item
+            android:id="@+id/privacy"
+            android:title="Privacy Policy"
+            android:icon="@drawable/ic_baseline_policy_24"
+            />
+
+    </group>
+
+</menu>

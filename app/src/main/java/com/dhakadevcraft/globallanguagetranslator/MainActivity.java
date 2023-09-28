@@ -29,6 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 import com.mannan.translateapi.TranslateAPI;
 
 import java.util.ArrayList;
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     TextToSpeech textToSpeech;
     ProgressBar loader;
     SharedPreferences sharedPreferences;
+    DrawerLayout drowerLayout;
+    MaterialToolbar metarialToolbar;
+    NavigationView navigationView;
 
 
     @Override
@@ -65,8 +70,14 @@ public class MainActivity extends AppCompatActivity {
         btnListen = (ImageView) findViewById(R.id.btnListen);
         share = (ImageView) findViewById(R.id.share);
         loader = findViewById(R.id.loader);
+        drowerLayout = findViewById(R.id.drowerLayout);
+        metarialToolbar = findViewById(R.id.metarialToolbar);
+        navigationView = findViewById(R.id.navigationView);
 
         //-------------------Drower Layout Code --------------------------------------
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this,drowerLayout,metarialToolbar,R.string.navigation_drawer_close,
+                R.string.navigation_drawer_open);
+        drowerLayout.addDrawerListener(toggle);
 
 
         //-------------------Text To Speatch Code --------------------------------------
