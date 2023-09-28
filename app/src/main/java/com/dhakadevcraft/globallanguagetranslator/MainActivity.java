@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
         metarialToolbar = findViewById(R.id.metarialToolbar);
         navigationView = findViewById(R.id.navigationView);
 
+
+        //-------------------Set Defult Color Navigation Code -----------------------
+        navigationView.setItemIconTintList(null);
+
         //-------------------Drower Layout Code --------------------------------------
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this,drowerLayout,metarialToolbar,R.string.navigation_drawer_close,
                 R.string.navigation_drawer_open);
