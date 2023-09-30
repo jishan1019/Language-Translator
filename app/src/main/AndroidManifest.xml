@@ -19,15 +19,20 @@
         android:theme="@style/Theme.GlobalLanguageTranslator"
         android:usesCleartextTraffic="true"
         tools:targetApi="34">
-
         <activity
-           android:name=".MainActivity"
+            android:name=".PrivacyActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -41,11 +46,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
-
-
-
     </application>
 
 </manifest>

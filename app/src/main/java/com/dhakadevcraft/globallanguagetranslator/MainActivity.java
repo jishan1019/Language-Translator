@@ -74,10 +74,6 @@ public class MainActivity extends AppCompatActivity {
         metarialToolbar = findViewById(R.id.metarialToolbar);
         navigationView = findViewById(R.id.navigationView);
 
-
-        //-------------------Set Defult Color Navigation Code -----------------------
-        navigationView.setItemIconTintList(null);
-
         //-------------------Drower Layout Code --------------------------------------
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this,drowerLayout,metarialToolbar,R.string.navigation_drawer_close,
                 R.string.navigation_drawer_open);
@@ -137,10 +133,196 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 showLoader();
+                String selectedLanguage = MainActivity.this.spLanguage.getSelectedItem().toString();
                 String targetLanguageCode = "bn";
-                if (MainActivity.this.spLanguage.getSelectedItem().toString().equals("English")) {
+
+                if (selectedLanguage.equals("Albanian")) {
+                    targetLanguageCode = "sq";
+                } else if (selectedLanguage.equals("Amharic")) {
+                    targetLanguageCode = "am";
+                } else if (selectedLanguage.equals("Arabic")) {
+                    targetLanguageCode = "ar";
+                } else if (selectedLanguage.equals("Basque")) {
+                    targetLanguageCode = "eu";
+                } else if (selectedLanguage.equals("Bemba")) {
+                    targetLanguageCode = "bem";
+                } else if (selectedLanguage.equals("Bengali")) {
+                    targetLanguageCode = "bn";
+                } else if (selectedLanguage.equals("Bielarus")) {
+                    targetLanguageCode = "be";
+                } else if (selectedLanguage.equals("Bislama")) {
+                    targetLanguageCode = "bi";
+                } else if (selectedLanguage.equals("Bosnian")) {
+                    targetLanguageCode = "bs";
+                } else if (selectedLanguage.equals("Breton")) {
+                    targetLanguageCode = "br";
+                } else if (selectedLanguage.equals("Bulgarian")) {
+                    targetLanguageCode = "bg";
+                } else if (selectedLanguage.equals("Catalan")) {
+                    targetLanguageCode = "ca";
+                } else if (selectedLanguage.equals("Coptic")) {
+                    targetLanguageCode = "cop";
+                } else if (selectedLanguage.equals("Croatian")) {
+                    targetLanguageCode = "hr";
+                } else if (selectedLanguage.equals("Czech")) {
+                    targetLanguageCode = "cs";
+                } else if (selectedLanguage.equals("Danish")) {
+                    targetLanguageCode = "da";
+                } else if (selectedLanguage.equals("Dutch")) {
+                    targetLanguageCode = "nl";
+                } else if (selectedLanguage.equals("Dzongkha")) {
+                    targetLanguageCode = "dz";
+                } else if (selectedLanguage.equals("English")) {
                     targetLanguageCode = "en";
+                } else if (selectedLanguage.equals("Estonian")) {
+                    targetLanguageCode = "et";
+                } else if (selectedLanguage.equals("Faroese")) {
+                    targetLanguageCode = "fo";
+                } else if (selectedLanguage.equals("Finnish")) {
+                    targetLanguageCode = "fi";
+                } else if (selectedLanguage.equals("French")) {
+                    targetLanguageCode = "fr";
+                } else if (selectedLanguage.equals("Galician")) {
+                    targetLanguageCode = "gl";
+                } else if (selectedLanguage.equals("German")) {
+                    targetLanguageCode = "de";
+                } else if (selectedLanguage.equals("Greek")) {
+                    targetLanguageCode = "el";
+                } else if (selectedLanguage.equals("Gujarati")) {
+                    targetLanguageCode = "gu";
+                } else if (selectedLanguage.equals("Hausa")) {
+                    targetLanguageCode = "ha";
+                } else if (selectedLanguage.equals("Hebrew")) {
+                    targetLanguageCode = "he";
+                } else if (selectedLanguage.equals("Hindi")) {
+                    targetLanguageCode = "hi";
+                } else if (selectedLanguage.equals("Hungarian")) {
+                    targetLanguageCode = "hu";
+                } else if (selectedLanguage.equals("Icelandic")) {
+                    targetLanguageCode = "is";
+                } else if (selectedLanguage.equals("Indonesian")) {
+                    targetLanguageCode = "id";
+                } else if (selectedLanguage.equals("Italian")) {
+                    targetLanguageCode = "it";
+                } else if (selectedLanguage.equals("Japanese")) {
+                    targetLanguageCode = "ja";
+                } else if (selectedLanguage.equals("Kazakh")) {
+                    targetLanguageCode = "kk";
+                } else if (selectedLanguage.equals("Khmer")) {
+                    targetLanguageCode = "km";
+                } else if (selectedLanguage.equals("Kannada")) {
+                    targetLanguageCode = "kn";
+                } else if (selectedLanguage.equals("Korean")) {
+                    targetLanguageCode = "ko";
+                } else if (selectedLanguage.equals("Kurdish")) {
+                    targetLanguageCode = "ku";
+                } else if (selectedLanguage.equals("Kyrgyz")) {
+                    targetLanguageCode = "ky";
+                } else if (selectedLanguage.equals("Latin")) {
+                    targetLanguageCode = "la";
+                } else if (selectedLanguage.equals("Lao")) {
+                    targetLanguageCode = "lo";
+                } else if (selectedLanguage.equals("Latvian")) {
+                    targetLanguageCode = "lv";
+                } else if (selectedLanguage.equals("Mende")) {
+                    targetLanguageCode = "men";
+                } else if (selectedLanguage.equals("Malagasy")) {
+                    targetLanguageCode = "mg";
+                } else if (selectedLanguage.equals("Maori")) {
+                    targetLanguageCode = "mi";
+                } else if (selectedLanguage.equals("Malay")) {
+                    targetLanguageCode = "ms";
+                } else if (selectedLanguage.equals("Maldivian")) {
+                    targetLanguageCode = "dv";
+                } else if (selectedLanguage.equals("Maltese")) {
+                    targetLanguageCode = "mt";
+                } else if (selectedLanguage.equals("Burmese")) {
+                    targetLanguageCode = "my";
+                } else if (selectedLanguage.equals("Nepali")) {
+                    targetLanguageCode = "ne";
+                } else if (selectedLanguage.equals("Niuean")) {
+                    targetLanguageCode = "niu";
+                } else if (selectedLanguage.equals("Norwegian")) {
+                    targetLanguageCode = "no";
+                } else if (selectedLanguage.equals("Nyanja")) {
+                    targetLanguageCode = "ny";
+                } else if (selectedLanguage.equals("Pakistani")) {
+                    targetLanguageCode = "ur";
+                } else if (selectedLanguage.equals("Palauan")) {
+                    targetLanguageCode = "pau";
+                } else if (selectedLanguage.equals("Panjabi")) {
+                    targetLanguageCode = "pa";
+                } else if (selectedLanguage.equals("Pashto")) {
+                    targetLanguageCode = "ps";
+                } else if (selectedLanguage.equals("Pijin")) {
+                    targetLanguageCode = "pis";
+                } else if (selectedLanguage.equals("Polish")) {
+                    targetLanguageCode = "pl";
+                } else if (selectedLanguage.equals("Portuguese")) {
+                    targetLanguageCode = "pt";
+                } else if (selectedLanguage.equals("Kirundi")) {
+                    targetLanguageCode = "rn";
+                } else if (selectedLanguage.equals("Romanian")) {
+                    targetLanguageCode = "ro";
+                } else if (selectedLanguage.equals("Russian")) {
+                    targetLanguageCode = "ru";
+                } else if (selectedLanguage.equals("Sango")) {
+                    targetLanguageCode = "sg";
+                } else if (selectedLanguage.equals("Sinhala")) {
+                    targetLanguageCode = "si";
+                } else if (selectedLanguage.equals("Slovak")) {
+                    targetLanguageCode = "sk";
+                } else if (selectedLanguage.equals("Samoan")) {
+                    targetLanguageCode = "sm";
+                } else if (selectedLanguage.equals("Shona")) {
+                    targetLanguageCode = "sn";
+                } else if (selectedLanguage.equals("Somali")) {
+                    targetLanguageCode = "so";
+                } else if (selectedLanguage.equals("Spanish")) {
+                    targetLanguageCode = "es";
+                } else if (selectedLanguage.equals("Swedish")) {
+                    targetLanguageCode = "sv";
+                } else if (selectedLanguage.equals("Swahili")) {
+                    targetLanguageCode = "sw";
+                } else if (selectedLanguage.equals("Tamil")) {
+                    targetLanguageCode = "ta";
+                } else if (selectedLanguage.equals("Telugu")) {
+                    targetLanguageCode = "te";
+                } else if (selectedLanguage.equals("Tetum")) {
+                    targetLanguageCode = "tet";
+                } else if (selectedLanguage.equals("Tajik")) {
+                    targetLanguageCode = "tg";
+                } else if (selectedLanguage.equals("Thai")) {
+                    targetLanguageCode = "th";
+                } else if (selectedLanguage.equals("Tigrinya")) {
+                    targetLanguageCode = "ti";
+                } else if (selectedLanguage.equals("Turkmen")) {
+                    targetLanguageCode = "tk";
+                } else if (selectedLanguage.equals("Tagalog")) {
+                    targetLanguageCode = "tl";
+                } else if (selectedLanguage.equals("Tswana")) {
+                    targetLanguageCode = "tn";
+                } else if (selectedLanguage.equals("Tongan")) {
+                    targetLanguageCode = "to";
+                } else if (selectedLanguage.equals("Turkish")) {
+                    targetLanguageCode = "tr";
+                } else if (selectedLanguage.equals("Ukrainian")) {
+                    targetLanguageCode = "uk";
+                } else if (selectedLanguage.equals("Uzbek")) {
+                    targetLanguageCode = "uz";
+                } else if (selectedLanguage.equals("Vietnamese")) {
+                    targetLanguageCode = "vi";
+                } else if (selectedLanguage.equals("Wolof")) {
+                    targetLanguageCode = "wo";
+                } else if (selectedLanguage.equals("Xhosa")) {
+                    targetLanguageCode = "xh";
+                } else if (selectedLanguage.equals("Yiddish")) {
+                    targetLanguageCode = "yi";
+                } else if (selectedLanguage.equals("Zulu")) {
+                    targetLanguageCode = "zu";
                 }
+
+
                 new TranslateAPI("auto", targetLanguageCode, MainActivity.this.edInput.getText().toString()).setTranslateListener(new TranslateAPI.TranslateListener() {
                     public void onSuccess(String translatedText) {
                         hideLoader();
