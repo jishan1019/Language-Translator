@@ -432,6 +432,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 if (item.getItemId() == R.id.home){
+                    drowerLayout.closeDrawer(GravityCompat.START);
 
                 }else if(item.getItemId() == R.id.rate){
                     String packageName = BuildConfig.APPLICATION_ID;
@@ -440,6 +441,8 @@ public class MainActivity extends AppCompatActivity {
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivity(intent);
                     }
+
+                    drowerLayout.closeDrawer(GravityCompat.START);
 
                 }else if(item.getItemId() == R.id.feedback){
 //                    String packageName = BuildConfig.APPLICATION_ID;
@@ -456,7 +459,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
 
+                    drowerLayout.closeDrawer(GravityCompat.START);
+
                 }else if(item.getItemId() == R.id.update){
+
+                    drowerLayout.closeDrawer(GravityCompat.START);
 
                 }else if(item.getItemId() == R.id.more){
                     String developerName = "DhakaDevCraft";
@@ -466,11 +473,14 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
 
+                    drowerLayout.closeDrawer(GravityCompat.START);
+
                 }else if(item.getItemId() == R.id.privacy){
                     startActivity(new Intent(MainActivity.this,PrivacyActivity.class));
+                    drowerLayout.closeDrawer(GravityCompat.START);
                 }
 
-                return false;
+                return true;
             }
         });
     }

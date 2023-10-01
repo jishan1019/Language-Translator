@@ -10,30 +10,35 @@
             android:id="@+id/home"
             android:title="Home"
             android:icon="@drawable/ic_baseline_home_24"
+            android:checkable="true"
             />
 
         <item
             android:id="@+id/rate"
             android:title="Rating App"
             android:icon="@drawable/ic_baseline_star_rate_24"
+            android:checkable="true"
             />
 
         <item
             android:id="@+id/feedback"
             android:title="Feedback"
             android:icon="@drawable/ic_baseline_feedback_24"
+            android:checkable="true"
             />
 
         <item
             android:id="@+id/update"
             android:title="Update Apps"
             android:icon="@drawable/ic_baseline_update_24"
+            android:checkable="true"
             />
 
         <item
             android:id="@+id/more"
             android:title="More Apps"
             android:icon="@drawable/ic_baseline_add_to_more_24"
+            android:checkable="true"
             />
 
     </group>
@@ -46,6 +51,7 @@
             android:id="@+id/privacy"
             android:title="Privacy Policy"
             android:icon="@drawable/ic_baseline_policy_24"
+            android:checkable="true"
             />
 
     </group>
