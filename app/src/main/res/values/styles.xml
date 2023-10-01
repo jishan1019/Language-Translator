@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="CustomToolbarTitleTextAppearance">17sp</style>
+    <!-- Background color for the dialog window -->
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Background color for the dialog window -->
+        <item name="android:background">@android:color/white</item>
+        <!-- Text color for message and buttons -->
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
 </resources>

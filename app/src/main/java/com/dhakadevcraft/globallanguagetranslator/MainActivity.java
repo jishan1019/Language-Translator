@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -14,11 +15,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -75,11 +80,18 @@ public class MainActivity extends AppCompatActivity {
         metarialToolbar = findViewById(R.id.metarialToolbar);
         navigationView = findViewById(R.id.navigationView);
 
+        //-------------------Internet Chek Code--------------------------------------
+        if (!isInternetAvailable()) {
+            NoInternetDialog dialog = NoInternetDialog.create(this, this);
+            dialog.show();
+        }
+
         //-------------------Drower Layout Code --------------------------------------
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this,drowerLayout,metarialToolbar,R.string.navigation_drawer_close,
                 R.string.navigation_drawer_open);
         drowerLayout.addDrawerListener(toggle);
         drowerItem();
+        toolBarItem();
 
 
         //-------------------Text To Speatch Code --------------------------------------
@@ -399,10 +411,25 @@ public class MainActivity extends AppCompatActivity {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
                 shareIntent.setType("text/plain");
                 startActivity(Intent.createChooser(shareIntent, "Share text via"));
+
             }
         });
 
 
+    }
+
+    private boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
+    }
+
+
+    public void finishApp() {
+        finish();
     }
 
     public void startSpeechToText() {
@@ -425,7 +452,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void drowerItem(){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -445,13 +471,6 @@ public class MainActivity extends AppCompatActivity {
                     drowerLayout.closeDrawer(GravityCompat.START);
 
                 }else if(item.getItemId() == R.id.feedback){
-//                    String packageName = BuildConfig.APPLICATION_ID;
-//                    Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + packageName);
-//                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//                    if (intent.resolveActivity(getPackageManager()) != null) {
-//                        startActivity(intent);
-//                    }
-
                     String packageName = BuildConfig.APPLICATION_ID;
                     Uri uri = Uri.parse("market://details?id=" + packageName + "&hl=en-US#reviews");
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -462,7 +481,12 @@ public class MainActivity extends AppCompatActivity {
                     drowerLayout.closeDrawer(GravityCompat.START);
 
                 }else if(item.getItemId() == R.id.update){
-
+                    String packageName = BuildConfig.APPLICATION_ID;
+                    Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + packageName);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
                     drowerLayout.closeDrawer(GravityCompat.START);
 
                 }else if(item.getItemId() == R.id.more){
@@ -485,18 +509,41 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void toolBarItem(){
+        metarialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.toolber_share){
+                    String packageName = BuildConfig.APPLICATION_ID;
+                    Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + packageName);
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, uri);
+                    shareIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(shareIntent, "Share Apps via"));
+                }
 
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(getDrawable(R.drawable.icon)).setMessage((CharSequence) "Thankyou for use our Application❣️").setTitle((CharSequence) "Do you want's to exit?").setCancelable(false).setPositiveButton((CharSequence) "Yes", (DialogInterface.OnClickListener) new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                MainActivity.this.finish();
-            }
-        }).setNegativeButton((CharSequence) "No", (DialogInterface.OnClickListener) new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
+                return false;
             }
         });
+    }
+
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+        builder.setIcon(getDrawable(R.drawable.icon))
+                .setMessage("We appreciate your use of our app! ❣️")
+                .setTitle("Are you sure want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        MainActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
         builder.create().show();
     }
 
