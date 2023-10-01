@@ -10,7 +10,7 @@ import android.webkit.WebViewClient;
 public class PrivacyActivity extends AppCompatActivity {
 
     WebView browser_view;
-    public static String browser_view_url = "";
+//    public static String browser_view_url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class PrivacyActivity extends AppCompatActivity {
 
         browser_view = findViewById(R.id.browser_view);
 
-        browser_view.loadUrl(browser_view_url);
+        browser_view.loadUrl(getResources().getString(R.string.browser_view_url));
         browser_view.setWebViewClient(new WebViewClient());
         browser_view.getSettings().setJavaScriptEnabled(true);
         browser_view.getSettings().setBuiltInZoomControls(true);

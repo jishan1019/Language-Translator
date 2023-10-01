@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this,drowerLayout,metarialToolbar,R.string.navigation_drawer_close,
                 R.string.navigation_drawer_open);
         drowerLayout.addDrawerListener(toggle);
+        drowerItem();
 
 
         //-------------------Text To Speatch Code --------------------------------------
@@ -421,6 +423,56 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == this.REQUEST_CODE_SPEECH_INPUT && resultCode == -1 && data != null && (result = data.getStringArrayListExtra("android.speech.extra.RESULTS")) != null && !result.isEmpty()) {
             this.edInput.setText(result.get(0));
         }
+    }
+
+
+    private void drowerItem(){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if (item.getItemId() == R.id.home){
+
+                }else if(item.getItemId() == R.id.rate){
+                    String packageName = BuildConfig.APPLICATION_ID;
+                    Uri uri = Uri.parse("market://details?id=" + packageName + "&hl=en-US&showAllReviews=true");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+
+                }else if(item.getItemId() == R.id.feedback){
+//                    String packageName = BuildConfig.APPLICATION_ID;
+//                    Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + packageName);
+//                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                    if (intent.resolveActivity(getPackageManager()) != null) {
+//                        startActivity(intent);
+//                    }
+
+                    String packageName = BuildConfig.APPLICATION_ID;
+                    Uri uri = Uri.parse("market://details?id=" + packageName + "&hl=en-US#reviews");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+
+                }else if(item.getItemId() == R.id.update){
+
+                }else if(item.getItemId() == R.id.more){
+                    String developerName = "DhakaDevCraft";
+                    Uri uri = Uri.parse("https://play.google.com/store/search?q=pub:" + developerName);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+
+                }else if(item.getItemId() == R.id.privacy){
+                    startActivity(new Intent(MainActivity.this,PrivacyActivity.class));
+                }
+
+                return false;
+            }
+        });
     }
 
 

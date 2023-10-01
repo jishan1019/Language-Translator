@@ -221,13 +221,6 @@
                 >
 
                 <ImageView
-                    android:id="@+id/favirute"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@drawable/favurite" />
-
-                <ImageView
                     android:id="@+id/btnListen"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
