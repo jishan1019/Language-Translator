@@ -1,6 +1,7 @@
 package com.dhakadevcraft.globallanguagetranslator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.ProgressDialog;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -37,6 +38,13 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.mannan.translateapi.TranslateAPI;
 
 import java.util.ArrayList;
@@ -44,6 +52,8 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int APP_UPDATE_REQUEST_CODE = 500;
+    AppUpdateManager appUpdateManager;
 
     int REQUEST_CODE_SPEECH_INPUT = 100;
     Button button;
@@ -59,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drowerLayout;
     MaterialToolbar metarialToolbar;
     NavigationView navigationView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +89,11 @@ public class MainActivity extends AppCompatActivity {
         drowerLayout = findViewById(R.id.drowerLayout);
         metarialToolbar = findViewById(R.id.metarialToolbar);
         navigationView = findViewById(R.id.navigationView);
+
+        //------------------In App Update Code -------------------------------------
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+        appUpdateManager.registerListener(installStateUpdatedListener);
+        checkForAppUpdate();
 
         //-------------------Internet Chek Code--------------------------------------
         if (!isInternetAvailable()) {
@@ -445,13 +459,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ArrayList<String> result;
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == this.REQUEST_CODE_SPEECH_INPUT && resultCode == -1 && data != null && (result = data.getStringArrayListExtra("android.speech.extra.RESULTS")) != null && !result.isEmpty()) {
-            this.edInput.setText(result.get(0));
-        }
-    }
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        ArrayList<String> result;
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == this.REQUEST_CODE_SPEECH_INPUT && resultCode == -1 && data != null && (result = data.getStringArrayListExtra("android.speech.extra.RESULTS")) != null && !result.isEmpty()) {
+//            this.edInput.setText(result.get(0));
+//        }
+//    }
 
     private void drowerItem(){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -561,11 +575,72 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        checkForAppUpdate();
+    }
+
+    @Override
     protected void onDestroy() {
         if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
         }
         super.onDestroy();
+        appUpdateManager.unregisterListener(installStateUpdatedListener);
     }
+
+    private void checkForAppUpdate() {
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(appUpdateInfo -> {
+                    if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                            && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                        try {
+                            appUpdateManager.startUpdateFlowForResult(
+                                    appUpdateInfo,
+                                    AppUpdateType.IMMEDIATE,
+                                    this,
+                                    APP_UPDATE_REQUEST_CODE);
+                        } catch (Exception e) {
+                            Log.e("AppUpdate", "Error starting app update: " + e.getMessage());
+                        }
+                    }
+                });
+    }
+
+    private InstallStateUpdatedListener installStateUpdatedListener = new InstallStateUpdatedListener() {
+        @Override
+        public void onStateUpdate(InstallState installState) {
+            if (installState.installStatus() == InstallStatus.DOWNLOADED) {
+                completeUpdate();
+            }
+        }
+    };
+
+    private void completeUpdate() {
+        if (appUpdateManager != null) {
+            try {
+                appUpdateManager.completeUpdate();
+            } catch (Exception e) {
+                Log.e("AppUpdate", "Error completing app update: " + e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == this.REQUEST_CODE_SPEECH_INPUT) {
+            ArrayList<String> result;
+            if (resultCode == RESULT_OK && data != null && (result = data.getStringArrayListExtra("android.speech.extra.RESULTS")) != null && !result.isEmpty()) {
+                this.edInput.setText(result.get(0));
+            }
+        } else if (requestCode == APP_UPDATE_REQUEST_CODE) {
+            if (resultCode != Activity.RESULT_OK) {
+                Log.e("AppUpdate", "App update failed with result code: " + resultCode);
+            }
+        }
+    }
+
 }
