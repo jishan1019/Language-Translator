@@ -44,6 +44,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+
     int REQUEST_CODE_SPEECH_INPUT = 100;
     Button button;
     ImageView clear_button,share;
