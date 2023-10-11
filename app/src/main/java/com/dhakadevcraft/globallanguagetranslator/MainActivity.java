@@ -31,11 +31,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -69,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drowerLayout;
     MaterialToolbar metarialToolbar;
     NavigationView navigationView;
+    LinearLayout adContainer;
+
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
         drowerLayout = findViewById(R.id.drowerLayout);
         metarialToolbar = findViewById(R.id.metarialToolbar);
         navigationView = findViewById(R.id.navigationView);
+        adContainer = findViewById(R.id.banner_container);
+
+        //-------------Load Banner Ads---------------------------------------------
+        loadBannerAds();
 
         //------------------In App Update Code -------------------------------------
         appUpdateManager = AppUpdateManagerFactory.create(this);
@@ -433,6 +443,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //--------------Banner Ads Show Code ----------------------
+    private void loadBannerAds(){
+        String bannerId = StringConstants.getFbBannerId();
+        adView = new AdView(this, bannerId, AdSize.BANNER_HEIGHT_50);
+        adContainer.addView(adView);
+        adView.loadAd();
+
+    }
+
+
+
+
     private boolean isInternetAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -441,7 +463,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
 
     public void finishApp() {
         finish();

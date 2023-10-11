@@ -49,9 +49,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="7dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="50dp"
                 android:weightSum="2">
 
                 <LinearLayout
@@ -76,7 +76,7 @@
                             android:layout_gravity="start"
                             android:id="@+id/edInput"
                             android:background="@android:color/transparent"
-                            android:paddingBottom="20dp"
+                            android:paddingBottom="25dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
@@ -96,7 +96,7 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="40dp"
+                                android:layout_height="35dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerInParent="true"
                                 android:layout_marginRight="10dp"
@@ -105,23 +105,23 @@
 
                                 <ImageView
                                     android:id="@+id/voiceIcon"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_marginRight="7dp"
                                     android:src="@drawable/microphone" />
 
                                 <ImageView
                                     android:id="@+id/btnPaste"
-                                    android:layout_width="28dp"
-                                    android:layout_height="28dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="23dp"
+                                    android:layout_height="23dp"
+                                    android:layout_marginRight="7dp"
                                     android:layout_marginBottom="1dp"
                                     android:src="@drawable/past" />
 
                                 <ImageView
                                     android:id="@+id/clear_button"
-                                    android:layout_width="34dp"
-                                    android:layout_height="34dp"
+                                    android:layout_width="29dp"
+                                    android:layout_height="29dp"
                                     android:layout_marginRight="5dp"
                                     android:layout_marginBottom="1dp"
                                     android:src="@drawable/clear" />
@@ -212,8 +212,8 @@
                 android:gravity="center |right"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="48dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="64dp"
                 android:layout_marginRight="8dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
@@ -222,28 +222,38 @@
 
                 <ImageView
                     android:id="@+id/btnListen"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginRight="15dp"
                     android:src="@drawable/speak" />
 
                 <ImageView
                     android:id="@+id/copy_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginRight="15dp"
                     android:src="@drawable/copy" />
 
                 <ImageView
                     android:id="@+id/share"
-                    android:layout_width="30dp"
-                    android:layout_height="28dp"
+                    android:layout_width="25dp"
+                    android:layout_height="23dp"
                     android:layout_marginRight="25dp"
                     android:src="@drawable/share" />
 
 
             </LinearLayout>
 
+
+            <!-- Ads Container-->
+            <LinearLayout
+                android:id="@+id/banner_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
         </RelativeLayout>
 
@@ -262,5 +272,6 @@
         android:background="@color/drower_bg"
 
         />
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
