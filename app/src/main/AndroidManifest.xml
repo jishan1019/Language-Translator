@@ -20,7 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GlobalLanguageTranslator"
         android:usesCleartextTraffic="true"
-        tools:targetApi="34">
+        tools:targetApi="34"
+        android:hardwareAccelerated="true"
+        >
         <activity
             android:name=".NoInternetDialog"
             android:exported="false">

@@ -37,8 +37,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -52,6 +57,7 @@ import com.mannan.translateapi.TranslateAPI;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,8 +79,12 @@ public class MainActivity extends AppCompatActivity {
     MaterialToolbar metarialToolbar;
     NavigationView navigationView;
     LinearLayout adContainer;
+    int bannerAdsCount = 0;
+    int fullScreenAdsCount = 0;
 
     private AdView adView;
+    private InterstitialAd interstitialAd;
+    private Random random;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         //-------------Load Banner Ads---------------------------------------------
         loadBannerAds();
+        loadFullScreenAd();
 
         //------------------In App Update Code -------------------------------------
         appUpdateManager = AppUpdateManagerFactory.create(this);
@@ -172,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 showLoader();
+                showFullScreenAds();
                 String selectedLanguage = MainActivity.this.spLanguage.getSelectedItem().toString();
                 String targetLanguageCode = "bn";
 
@@ -379,6 +391,7 @@ public class MainActivity extends AppCompatActivity {
         btnPaste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showFullScreenAds();
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 if (clipboard != null && clipboard.hasPrimaryClip()) {
                     ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
@@ -393,6 +406,7 @@ public class MainActivity extends AppCompatActivity {
                 if (textToSpeech != null && textToSpeech.isSpeaking()) {
                     textToSpeech.stop();
                 }
+                showFullScreenAds();
                 MainActivity.this.edInput.setText("");
                 MainActivity.this.textView.setText("");
                 toast("Text Clear.");
@@ -405,6 +419,7 @@ public class MainActivity extends AppCompatActivity {
                     toast("Please input some text frist.");
                     return;
                 }
+                showFullScreenAds();
                 String textToSpeak = textView.getText().toString();
                 textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "listenText");
             }
@@ -417,6 +432,7 @@ public class MainActivity extends AppCompatActivity {
                 if (textToCopy.length() != 0) {
                     ((ClipboardManager) MainActivity.this.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("Copied Text", textToCopy));
                     toast("Text copied to clipboard");
+                    showFullScreenAds();
                     return;
                 }
                 Toast.makeText(MainActivity.this, "Please translate frist", Toast.LENGTH_SHORT).show();
@@ -443,18 +459,97 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //--------------Banner Ads Show Code ----------------------
+    //-------------- Ads Show Code ----------------------
     private void loadBannerAds(){
         String bannerId = StringConstants.getFbBannerId();
         adView = new AdView(this, bannerId, AdSize.BANNER_HEIGHT_50);
         adContainer.addView(adView);
-        adView.loadAd();
+
+        AdListener adListener = new AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                bannerAdsCount++;
+                if (bannerAdsCount>= 2 ){
+                    if (adView != null){
+                        adView.destroy();
+                        adContainer.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+            }
+        };
+
+        adView.loadAd(adView.buildLoadAdConfig().withAdListener(adListener).build());
 
     }
 
+    private void loadFullScreenAd(){
+        String intersttitialAds = StringConstants.getFbInterstitialId();
+        interstitialAd = new InterstitialAd(this, intersttitialAds);
 
+        InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
+            @Override
+            public void onInterstitialDisplayed(Ad ad) {
+            }
 
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                loadFullScreenAd();
+            }
 
+            @Override
+            public void onError(Ad ad, AdError adError) {
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                fullScreenAdsCount++;
+                if (fullScreenAdsCount >=2 ){
+                    if (interstitialAd != null){
+                        interstitialAd.destroy();
+                    }
+                }
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+            }
+        };
+
+        interstitialAd.loadAd(
+                interstitialAd.buildLoadAdConfig()
+                        .withAdListener(interstitialAdListener)
+                        .build());
+    }
+
+    private void showFullScreenAds(){
+        random = new Random();
+        int randomNumber = random.nextInt(100)+1;
+        if ((randomNumber >10 && randomNumber <20) || (randomNumber >30 && randomNumber <40)  || (randomNumber >50 && randomNumber <60)
+                || (randomNumber >70 && randomNumber <80) || (randomNumber >95 && randomNumber <99)
+        ){
+            if (interstitialAd != null && interstitialAd.isAdLoaded()){
+                interstitialAd.show();
+            }
+        }
+    }
+
+    //-------------- No Internet Code ----------------------
     private boolean isInternetAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -468,6 +563,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    //-------------- Text To Speatch Code ----------------------
     public void startSpeechToText() {
         Intent intent = new Intent("android.speech.action.RECOGNIZE_SPEECH");
         intent.putExtra("android.speech.extra.LANGUAGE_MODEL", "free_form");
@@ -488,6 +584,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
+    //-------------- Drower Item Code ----------------------
     private void drowerItem(){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -545,6 +642,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //--------------Toolbar Item Code ----------------------
     private void toolBarItem(){
         metarialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -606,6 +704,12 @@ public class MainActivity extends AppCompatActivity {
         if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
+        }
+        if (adView != null) {
+            adView.destroy();
+        }
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
         }
         super.onDestroy();
         appUpdateManager.unregisterListener(installStateUpdatedListener);
