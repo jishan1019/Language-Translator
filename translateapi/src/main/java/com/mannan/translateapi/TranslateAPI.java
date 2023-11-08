@@ -17,10 +17,6 @@ import java.net.URLEncoder;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by hello on 16-Aug-18.
- */
-
 public class TranslateAPI {
 
     String resp = null;

@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         this.button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (MainActivity.this.edInput.length() == 0) {
-                    toast("Please input some text frist.");
+                    toast("Please translate some text frist.");
                     return;
                 }
                 showLoader();
@@ -415,13 +415,15 @@ public class MainActivity extends AppCompatActivity {
         btnListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MainActivity.this.edInput.length() == 0) {
-                    toast("Please input some text frist.");
-                    return;
-                }
-                showFullScreenAds();
                 String textToSpeak = textView.getText().toString();
-                textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "listenText");
+                if (textToSpeak.length() != 0) {
+                    showFullScreenAds();
+                    textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "listenText");
+                    return;
+                }else {
+                    toast("Please translate some text frist.");
+                }
+
             }
         });
 
@@ -438,20 +440,32 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Please translate frist", Toast.LENGTH_SHORT).show();
             }
         });
+
+
         this.voiceIcon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 MainActivity.this.startSpeechToText();
             }
         });
+
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String textToShare = textView.getText().toString();
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
-                shareIntent.setType("text/plain");
-                startActivity(Intent.createChooser(shareIntent, "Share text via"));
+
+                String translateResult = MainActivity.this.textView.getText().toString();
+                if (translateResult.length() != 0) {
+                    String textToShare = textView.getText().toString();
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
+                    shareIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(shareIntent, "Share text via"));
+                    return;
+                }else {
+                    toast("Please translate frist!");
+                }
+
+
 
             }
         });
@@ -540,13 +554,24 @@ public class MainActivity extends AppCompatActivity {
     private void showFullScreenAds(){
         random = new Random();
         int randomNumber = random.nextInt(100)+1;
-        if ((randomNumber >10 && randomNumber <20) || (randomNumber >30 && randomNumber <40)  || (randomNumber >50 && randomNumber <60)
-                || (randomNumber >70 && randomNumber <80) || (randomNumber >95 && randomNumber <99)
-        ){
+
+//        if ((randomNumber >10 && randomNumber <20) || (randomNumber >30 && randomNumber <40)  || (randomNumber >50 && randomNumber <60)
+//                || (randomNumber >70 && randomNumber <80) || (randomNumber >95 && randomNumber <99)
+//        ){
+//            if (interstitialAd != null && interstitialAd.isAdLoaded()){
+//                interstitialAd.show();
+//            }
+//        }
+
+        if ((randomNumber >20 && randomNumber <35)  || (randomNumber >55 && randomNumber <70)
+                || (randomNumber >85 && randomNumber <99)){
             if (interstitialAd != null && interstitialAd.isAdLoaded()){
                 interstitialAd.show();
             }
         }
+
+
+
     }
 
     //-------------- No Internet Code ----------------------
