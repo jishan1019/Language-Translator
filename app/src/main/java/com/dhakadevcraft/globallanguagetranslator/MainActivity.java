@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
         adContainer = findViewById(R.id.banner_container);
 
         //-------------Load Banner Ads---------------------------------------------
-        loadBannerAds();
-        loadFullScreenAd();
+//        loadBannerAds();
+//        loadFullScreenAd();
 
         //------------------In App Update Code -------------------------------------
         appUpdateManager = AppUpdateManagerFactory.create(this);
@@ -405,6 +405,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (textToSpeech != null && textToSpeech.isSpeaking()) {
                     textToSpeech.stop();
+
                 }
                 showFullScreenAds();
                 MainActivity.this.edInput.setText("");
@@ -417,6 +418,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String textToSpeak = textView.getText().toString();
                 if (textToSpeak.length() != 0) {
+                    toast("Please wait..");
                     showFullScreenAds();
                     textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "listenText");
                     return;
