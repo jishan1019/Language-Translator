@@ -17,9 +17,11 @@ public class PrivacyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy);
 
+        String privacuUrl = StringConstants.getPrivacyUrl();
+
         browser_view = findViewById(R.id.browser_view);
 
-        browser_view.loadUrl(getResources().getString(R.string.browser_view_url));
+        browser_view.loadUrl(privacuUrl);
         browser_view.setWebViewClient(new WebViewClient());
         browser_view.getSettings().setJavaScriptEnabled(true);
         browser_view.getSettings().setBuiltInZoomControls(true);

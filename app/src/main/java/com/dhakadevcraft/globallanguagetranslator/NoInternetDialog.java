@@ -11,7 +11,7 @@ public class NoInternetDialog extends AlertDialog {
 
     private MainActivity mActivity;
 
-    protected NoInternetDialog(Context context, MainActivity activity) {
+    public NoInternetDialog(Context context, MainActivity activity) {
         super(context);
         mActivity = activity;
     }

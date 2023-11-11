@@ -21,13 +21,7 @@
         tools:targetApi="34"
         android:hardwareAccelerated="true"
         >
-        <activity
-            android:name=".NoInternetDialog"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".PrivacyActivity"
             android:exported="false">

@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".PrivacyActivity"
     android:background="@color/black"
+    tools:keep="@layout/l_used*_c,@layout/l_used_a,@layout/l_used_b*"
+    tools:discard="@layout/unused2"
     >
 
     <WebView

@@ -8,6 +8,8 @@
     tools:openDrawer="start"
     android:background="@color/white"
     android:id="@+id/drowerLayout"
+    tools:keep="@layout/l_used*_c,@layout/l_used_a,@layout/l_used_b*"
+    tools:discard="@layout/unused2"
     >
 
     <!--Drower Code-->

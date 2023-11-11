@@ -7,13 +7,16 @@ public class StringConstants {
 
     private static final String FB_BANNER_ID = "932730361817497_932733988483801";
     private static final String FB_INTERSTITIAL_ID = "932730361817497_932734205150446";
+    private static final String PRIVACY_URL = "https://translator.prothomaloblog.xyz/global_language_translator_privacy/";
 
     public static String getFbBannerId() {
         return FB_BANNER_ID;
     }
-
     public static String getFbInterstitialId() {
         return FB_INTERSTITIAL_ID;
+    }
+    public static String getPrivacyUrl() {
+        return PRIVACY_URL;
     }
 
 }
