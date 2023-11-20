@@ -5,8 +5,8 @@
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
         <!-- Background color for the dialog window -->
         <item name="android:background">@android:color/white</item>
-        <!-- Text color for message and buttons -->
+        <!-- Text color for message -->
         <item name="android:textColor">@android:color/black</item>
-    </style>
 
+    </style>
 </resources>
