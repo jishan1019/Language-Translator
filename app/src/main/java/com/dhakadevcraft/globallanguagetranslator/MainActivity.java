@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
         adContainer = findViewById(R.id.banner_container);
 
         //-------------Load Banner Ads---------------------------------------------
-//        loadBannerAds();
-//        loadFullScreenAd();
+        loadBannerAds();
+        loadFullScreenAd();
 
         //------------------In App Update Code -------------------------------------
         appUpdateManager = AppUpdateManagerFactory.create(this);

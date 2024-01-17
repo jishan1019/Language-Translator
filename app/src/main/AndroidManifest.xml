@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GlobalLanguageTranslator"
         android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="34"
         android:hardwareAccelerated="true"
         >
@@ -29,6 +30,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+
         <activity
             android:name=".MainActivity"
             android:exported="false">
@@ -36,6 +39,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+
+
         <activity
             android:name=".SplashActivity"
             android:exported="true">
