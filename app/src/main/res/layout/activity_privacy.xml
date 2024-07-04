@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PrivacyActivity"
-    android:background="@color/black"
-    tools:keep="@layout/l_used*_c,@layout/l_used_a,@layout/l_used_b*"
-    tools:discard="@layout/unused2"
+    android:background="@color/white"
+    android:padding="10dp"
     >
 
-    <WebView
-        android:id="@+id/browser_view"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvPrivacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please Wait...."
+            android:textColor="@color/black"
+            />
+
+    </ScrollView>
+
+
+</LinearLayout>

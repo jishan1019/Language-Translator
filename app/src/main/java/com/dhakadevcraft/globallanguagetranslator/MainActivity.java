@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private InterstitialAd interstitialAd;
     private Random random;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -557,14 +558,6 @@ public class MainActivity extends AppCompatActivity {
         random = new Random();
         int randomNumber = random.nextInt(100)+1;
 
-//        if ((randomNumber >10 && randomNumber <20) || (randomNumber >30 && randomNumber <40)  || (randomNumber >50 && randomNumber <60)
-//                || (randomNumber >70 && randomNumber <80) || (randomNumber >95 && randomNumber <99)
-//        ){
-//            if (interstitialAd != null && interstitialAd.isAdLoaded()){
-//                interstitialAd.show();
-//            }
-//        }
-
         if ((randomNumber >20 && randomNumber <35)  || (randomNumber >55 && randomNumber <70)
                 || (randomNumber >85 && randomNumber <99)){
             if (interstitialAd != null && interstitialAd.isAdLoaded()){
@@ -572,9 +565,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
-
     }
+
 
     //-------------- No Internet Code ----------------------
     private boolean isInternetAvailable() {

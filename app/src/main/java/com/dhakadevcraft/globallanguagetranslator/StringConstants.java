@@ -7,7 +7,6 @@ public class StringConstants {
 
     private static final String FB_BANNER_ID = "932730361817497_1006213177802548";
     private static final String FB_INTERSTITIAL_ID = "932730361817497_1006213531135846";
-    private static final String PRIVACY_URL = "https://appslabbd.buzz/translatorAppPrivacy/";
 
     public static String getFbBannerId() {
         return FB_BANNER_ID;
@@ -15,8 +14,6 @@ public class StringConstants {
     public static String getFbInterstitialId() {
         return FB_INTERSTITIAL_ID;
     }
-    public static String getPrivacyUrl() {
-        return PRIVACY_URL;
-    }
+
 
 }

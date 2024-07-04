@@ -3,4 +3,7 @@
     <string name="navigation_drawer_open">Open Drawer</string>
     <string name="navigation_drawer_close">Close Drawer</string>
 
+    <string name="contact_gmail">globalLanguageTranslator22@gmail.com</string>
+    <string name="company_name">DhakaDevCraft</string>
+
 </resources>

@@ -10,8 +10,8 @@ android {
         applicationId "com.dhakadevcraft.globallanguagetranslator"
         minSdk 21
         targetSdk 34
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,9 +38,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation project(':translateapi')
-    implementation 'com.google.android.play:app-update:2.0.1'
+    implementation 'com.google.android.play:app-update:2.1.0'
     implementation 'androidx.annotation:annotation:1.7.0'
     implementation 'com.facebook.android:audience-network-sdk:6.16.0'
+
 
 
 }

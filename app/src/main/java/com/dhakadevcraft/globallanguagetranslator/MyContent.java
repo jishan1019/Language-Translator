@@ -11,5 +11,7 @@ public class MyContent extends Application {
         super.onCreate();
 
         AudienceNetworkAds.initialize(this);
+
+
     }
 }
